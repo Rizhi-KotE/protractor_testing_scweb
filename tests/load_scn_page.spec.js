@@ -5,18 +5,20 @@ function ScWebPage() {
 
     self.untilLoaded = function() {
         var deferred = protractor.promise.defer();
-        element.all(by.css(".scs-scn-element")).getAttribute("class")
-            .then(function(array){
+        element.all(by.css(".scs-scn-element"))
+            .first()
+            .getAttribute("class)")
+            .then(function(array) {
                 console.log(array);
-                var boolean = array.reduce(function(acc, classString){
-                    acc = acc && classString.indexOf("resolve") == -1;
-                },true)
-                console.log(boolean);
-                if(boolean){
-                    deferred.fulfill(boolean);
+                var acc = array != null && array.indexOf("resolve") == -1;
+                console.log(acc);
+                if (acc) {
+                    deferred.fulfill(acc);
                 }
             });
-        return deferred.promise;
+        console.log(deferred);
+        console.log(deferred.promise);
+        return deferred.promise.value_;
     }
 
     self.waitForScWebIsLoaded = function() {
@@ -37,7 +39,7 @@ function ScnPage(sc_window) {
     self.getScLinks = function() {
         return sc_window.all(by.css(".scs-scn-element"));
     }
-    self.waitForScLinksIsResolved = function(){
+    self.waitForScLinksIsResolved = function() {
 
     }
 }
