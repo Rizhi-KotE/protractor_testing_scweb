@@ -7,18 +7,12 @@ function ScWebPage() {
         var deferred = protractor.promise.defer();
         element.all(by.css(".scs-scn-element"))
             .first()
-            .getAttribute("class)")
+            .getAttribute("class")
             .then(function(array) {
-                console.log(array);
                 var acc = array != null && array.indexOf("resolve") == -1;
-                console.log(acc);
-                if (acc) {
-                    deferred.fulfill(acc);
-                }
+                deferred.fulfill(acc);
             });
-        console.log(deferred);
-        console.log(deferred.promise);
-        return deferred.promise.value_;
+        return deferred.promise;
     }
 
     self.waitForScWebIsLoaded = function() {
@@ -53,8 +47,12 @@ describe("Webdriver tutorial", function() {
     })
 
 
-    it('has the title of the post in the window\'s title', function() {
+    it('Start page should has all resolved links', function() {
         var scnPage = new ScnPage(scWebPage.getActiveWindowId());
-        expect(scnPage.getScLinks().first().getText()).toBe("true")
+        var elements = scnPage.getScLinks();
+        expect(elements.count()).not.toBeLessThan(2);
+        elements.each(function(element) {
+            expect(element).not.toContain("...")
+        })
     })
 })
