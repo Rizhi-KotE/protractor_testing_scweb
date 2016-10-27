@@ -1,28 +1,41 @@
-// An example configuration file.
+var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+
+var reporter = new HtmlScreenshotReporter({
+    dest: 'target/screenshots',
+    filename: 'my-report.html'
+});
 exports.config = {
     directConnect: true,
 
-    // Capabilities to be passed to the webdriver instance.
     capabilities: {
         'browserName': 'chrome'
     },
 
     chromeOnly: true,
 
-    // Framework to use. Jasmine is recommended.
     framework: 'jasmine',
 
-    // Spec patterns are relative to the current working directory when
-    // protractor is called.
     specs: ['tests/*spec.js'],
     exclude: ['tests/example*'],
 
-    // Options to be passed to Jasmine.
     jasmineNodeOpts: {
         defaultTimeoutInterval: 20000
     },
 
+    beforeLaunch: function() {
+        return new Promise(function(resolve){
+            reporter.beforeLaunch(resolve);
+        });
+    },
+
     onPrepare: function() {
         browser.ignoreSynchronization = true;
+        jasmine.getEnv().addReporter(reporter);
+    },
+
+    afterLaunch: function(exitCode) {
+        return new Promise(function(resolve){
+            reporter.afterLaunch(resolve.bind(this, exitCode));
+        });
     }
 };
