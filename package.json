@@ -1,0 +1,28 @@
+{
+  "name": "protractor_testing_scweb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "protractor_conf.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+     "protractor-jasmine2-screenshot-reporter": "^0.3.2",
+     "protractor": "^4.0.9",
+     "protractor-screenshot-reporter": "^0.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rizhi-KotE/protractor_testing_scweb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rizhi-KotE/protractor_testing_scweb/issues"
+  },
+  "homepage": "https://github.com/Rizhi-KotE/protractor_testing_scweb#readme"
+}
